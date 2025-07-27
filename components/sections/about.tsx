@@ -128,7 +128,7 @@ export default function About() {
                     <span className="text-cyan-400 font-semibold">Bangalore, India</span>
                   </div>
                   <div className="flex justify-between items-center p-4 bg-gray-800/30 rounded-xl">
-                    <span className="text-gray-300 text-lg">Batch</span>
+                    <span className="text-gray-300 text-lg">Branch</span>
                     <span className="text-yellow-400 font-semibold">CSIT</span>
                   </div>
                   <div className="flex justify-between items-center p-4 bg-gray-800/30 rounded-xl">
