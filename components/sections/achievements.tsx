@@ -29,7 +29,7 @@ const achievements = [
     title: "Quine Open Source",
     organization: "Quine",
     achievement: "Bronze Pack Reward",
-    description: "Successfully merged 15+ Pull Requests in open source projects",
+    description: "Successfully merged 20+ Pull Requests in open source projects",
     icon: GitBranch,
     color: "from-purple-500 to-pink-500",
     badge: "🥉 Bronze",
@@ -118,7 +118,7 @@ export default function Achievements() {
             <div className="text-gray-300">Major Achievements</div>
           </div>
           <div className="text-center">
-            <div className="text-4xl font-bold text-green-400 mb-2">15+</div>
+            <div className="text-4xl font-bold text-green-400 mb-2">40+</div>
             <div className="text-gray-300">Open Source PRs</div>
           </div>
           <div className="text-center">
