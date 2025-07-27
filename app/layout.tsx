@@ -49,7 +49,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={inter.className}>{children}<Analytics /></body>
+      <body className={inter.className}>
+        {children}
+        <Analytics /> {/* ✅ This must be inside the <body> */}
+      </body>
     </html>
   )
 }
