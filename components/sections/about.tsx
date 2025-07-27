@@ -21,21 +21,21 @@ const education = [
     degree: "B.Tech - CSIT Engineering",
     institution: "ITER, SOA University",
     cgpa: "9.17",
-    year: "Nov 2021 - Present",
-    status: "Current",
+    year: "2021 - 2025",
+    status: "Completed",
   },
   {
     degree: "Senior Secondary",
     institution: "Guru Nanak Hr. Sec. School Ranchi - CBSE",
     cgpa: "81.6%",
-    year: "Mar 2019 - Apr 2020",
+    year: "2020",
     status: "Completed",
   },
   {
     degree: "Higher Secondary",
     institution: "Guru Nanak Hr. Sec. School Ranchi - CBSE",
     cgpa: "94.67%",
-    year: "Mar 2017 - Mar 2018",
+    year: "2018",
     status: "Completed",
   },
 ]
@@ -61,21 +61,27 @@ export default function About() {
                   <Coffee className="w-8 h-8 mr-3 text-purple-400" />
                   My Journey
                 </h3>
+                <h3 className="text-2xl font-bold text-white mb-4">My Journey</h3>
+
                 <p className="text-gray-300 leading-relaxed mb-4 text-lg">
-                  I'm a passionate <span className="text-purple-400 font-semibold">Software Devloper</span> currently
-                  working at <span className="text-cyan-400 font-semibold">Broadridge</span>, where I build and optimize
-                  backend services using Node.js, Express, and PostgreSQL.
+                  I'm a passionate <span className="text-purple-400 font-semibold">Software Developer</span> currently working at{" "}
+                  <span className="text-cyan-400 font-semibold">Broadridge</span> in the{" "}
+                  <span className="text-purple-400 font-semibold">Digital Asset and Solution (DAS)</span> team, where we provide
+                  end-to-end solutions for managing digital assets like <span className="text-yellow-400 font-semibold">crypto</span>,
+                  tokenized securities, and blockchain-based services.
                 </p>
+
+
                 <p className="text-gray-300 leading-relaxed mb-4 text-lg">
-                  With a stellar <span className="text-green-400 font-bold">9.17 CGPA</span> at SOA University, I've
-                  been consistently pushing the boundaries of what's possible in software development. My expertise lies
-                  in creating scalable solutions and improving system performance.
+                  I love turning complex problems into clean, efficient solutions — whether it's improving performance, building APIs, or
+                  scaling backend infrastructure. Clean code and thoughtful design are at the core of my engineering approach.
                 </p>
+
                 <p className="text-gray-300 leading-relaxed text-lg">
-                  When I'm not coding, you'll find me solving chess puzzles, contributing to open-source projects, or
-                  speed-typing at <span className="text-yellow-400 font-semibold">70+ WPM</span>. I believe in
-                  continuous learning and staying ahead of the technology curve.
+                  Outside of work, you'll find me solving chess puzzles, contributing to open-source, or speed-typing at{" "}
+                  <span className="text-yellow-400 font-semibold">70+ WPM</span>. I’m a lifelong learner, always curious and excited about what’s next in tech.
                 </p>
+
               </CardContent>
             </Card>
 
@@ -119,14 +125,18 @@ export default function About() {
                   </div>
                   <div className="flex justify-between items-center p-4 bg-gray-800/30 rounded-xl">
                     <span className="text-gray-300 text-lg">Location</span>
-                    <span className="text-cyan-400 font-semibold">Bhubaneswar, India</span>
+                    <span className="text-cyan-400 font-semibold">Bangalore, India</span>
+                  </div>
+                  <div className="flex justify-between items-center p-4 bg-gray-800/30 rounded-xl">
+                    <span className="text-gray-300 text-lg">Batch</span>
+                    <span className="text-yellow-400 font-semibold">CSIT</span>
                   </div>
                   <div className="flex justify-between items-center p-4 bg-gray-800/30 rounded-xl">
                     <span className="text-gray-300 text-lg">CGPA</span>
                     <span className="text-green-400 font-bold text-xl">9.17 / 10</span>
                   </div>
                   <div className="flex justify-between items-center p-4 bg-gray-800/30 rounded-xl">
-                    <span className="text-gray-300 text-lg">Graduation</span>
+                    <span className="text-gray-300 text-lg">Graduation Year</span>
                     <span className="text-yellow-400 font-semibold">2025</span>
                   </div>
                 </div>
@@ -149,7 +159,7 @@ export default function About() {
                         <h4 className="text-white font-semibold text-lg">{edu.degree}</h4>
                         <Badge
                           variant={edu.status === "Current" ? "default" : "secondary"}
-                          className={edu.status === "Current" ? "bg-green-600 text-white" : "bg-gray-600 text-gray-200"}
+                          className={edu.status === "Completed" ? "bg-green-600 text-white" : "bg-gray-600 text-gray-200"}
                         >
                           {edu.status}
                         </Badge>

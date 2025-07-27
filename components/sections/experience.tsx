@@ -37,7 +37,7 @@ const positions = [
   {
     title: "Coordinator",
     organization: "Atal Incubation Centre (AIC - SOA Foundation)",
-    duration: "Dec 2023 - Present",
+    duration: "Jun 2024- Jun 2025",
     description:
       "Coordinated 400+ students from 50 colleges for Hackathon, Ideathon, and Business Marathon at E-Summit 2024",
     type: "Leadership",
@@ -45,7 +45,7 @@ const positions = [
   {
     title: "Core Member - Technical Team",
     organization: "Google Developers Student Club, ITER, SOA University",
-    duration: "Sept 2023 - Present",
+    duration: "Sept 2023 - Jan 2025",
     description: "Spearheaded coding culture promotion in college through seminars and workshops (500+ students)",
     type: "Technical",
   },
