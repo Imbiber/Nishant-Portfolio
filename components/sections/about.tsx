@@ -128,6 +128,10 @@ export default function About() {
                     <span className="text-cyan-400 font-semibold">Bangalore, India</span>
                   </div>
                   <div className="flex justify-between items-center p-4 bg-gray-800/30 rounded-xl">
+                    <span className="text-gray-300 text-lg">Graduation Year</span>
+                    <span className="text-yellow-400 font-semibold">2025</span>
+                  </div>
+                  <div className="flex justify-between items-center p-4 bg-gray-800/30 rounded-xl">
                     <span className="text-gray-300 text-lg">Branch</span>
                     <span className="text-yellow-400 font-semibold">CSIT</span>
                   </div>
@@ -135,10 +139,7 @@ export default function About() {
                     <span className="text-gray-300 text-lg">CGPA</span>
                     <span className="text-green-400 font-bold text-xl">9.17 / 10</span>
                   </div>
-                  <div className="flex justify-between items-center p-4 bg-gray-800/30 rounded-xl">
-                    <span className="text-gray-300 text-lg">Graduation Year</span>
-                    <span className="text-yellow-400 font-semibold">2025</span>
-                  </div>
+                 
                 </div>
               </CardContent>
             </Card>
