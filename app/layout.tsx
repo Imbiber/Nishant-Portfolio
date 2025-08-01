@@ -2,12 +2,9 @@ import type React from "react";
 import type { Metadata } from "next";
 import { Analytics } from '@vercel/analytics/react';
 import { Inter } from "next/font/google";
-import Script from 'next/script';
-import dynamic from 'next/dynamic'; // ✅ Import dynamic
 import "./globals.css";
 
-// ✅ Lazy load the client-only component
-const OneSignalInit = dynamic(() => import('@/components/OneSignalInit'), { ssr: false });
+import ClientProviders from "@/components/ClientProviders"; // ✅ No dynamic, just import normally
 
 const inter = Inter({ subsets: ["latin"] });
 
