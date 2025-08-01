@@ -1,10 +1,14 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { Analytics } from '@vercel/analytics/react';
-import { Inter } from "next/font/google"
-import "./globals.css"
+'use client';
 
-const inter = Inter({ subsets: ["latin"] })
+import type React from "react";
+import type { Metadata } from "next";
+import { Analytics } from '@vercel/analytics/react';
+import { Inter } from "next/font/google";
+import Script from 'next/script';
+import { useEffect } from 'react';
+import "./globals.css";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Nishant Gaurav - Software Devloper & Full Stack Developer",
@@ -40,22 +44,42 @@ export const metadata: Metadata = {
     },
   },
   generator: 'v0.dev'
-}
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      window.OneSignalDeferred.push(function (OneSignal: any) {
+        OneSignal.init({
+          appId: '6631c98b-2bd8-4ffa-87b8-19446254c665', // ✅ Replace with your actual OneSignal App ID
+          notifyButton: {
+            enable: true,
+          },
+        });
+      });
+    }
+  }, []);
+
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+      </head>
       <body className={inter.className}>
+        {/* OneSignal SDK */}
+        <Script
+          src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
+          strategy="beforeInteractive"
+        />
         {children}
-        <Analytics /> {/* ✅ This must be inside the <body> */}
+        <Analytics />
       </body>
     </html>
-  )
+  );
 }
-
-
-
