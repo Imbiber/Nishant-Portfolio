@@ -1,31 +1,32 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Analytics } from '@vercel/analytics/react';
+import { Analytics } from '@vercel/analytics/react'
 import { Inter } from "next/font/google"
+import Script from 'next/script'
 import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Nishant Gaurav - Software Devloper & Full Stack Developer",
+  title: "Nishant Gaurav - Software Developer & Full Stack Developer",
   description:
-    "Software Devloper at Broadridge | B.Tech CSIT Student at SOA University with 9.17 CGPA | Specializing in Node.js, PostgreSQL, Docker | Open Source Contributor",
+    "Software Developer at Broadridge | B.Tech CSIT Student at SOA University with 9.17 CGPA | Specializing in Node.js, PostgreSQL, Docker | Open Source Contributor",
   keywords:
-    "Software Devloper, full stack developer, node.js, postgresql, docker, broadridge, open source, nishant gaurav",
+    "Software Developer, full stack developer, node.js, postgresql, docker, broadridge, open source, nishant gaurav",
   authors: [{ name: "Nishant Gaurav" }],
   creator: "Nishant Gaurav",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://nishantgaurav.dev",
-    title: "Nishant Gaurav - Software Devloper & Full Stack Developer",
-    description: "Software Devloper at Broadridge specializing in scalable solutions with Node.js and PostgreSQL",
+    title: "Nishant Gaurav - Software Developer & Full Stack Developer",
+    description: "Software Developer at Broadridge specializing in scalable solutions with Node.js and PostgreSQL",
     siteName: "Nishant Gaurav Portfolio",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nishant Gaurav - Software Devloper & Full Stack Developer",
-    description: "Software Devloper at Broadridge specializing in scalable solutions with Node.js and PostgreSQL",
+    title: "Nishant Gaurav - Software Developer & Full Stack Developer",
+    description: "Software Developer at Broadridge specializing in scalable solutions with Node.js and PostgreSQL",
     creator: "@nishantgaurav19",
   },
   robots: {
@@ -49,13 +50,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        {/* OneSignal Script */}
+        <Script
+          src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"
+          strategy="beforeInteractive"
+        />
+      </head>
       <body className={inter.className}>
         {children}
-        <Analytics /> {/* ✅ This must be inside the <body> */}
+        <Analytics />
       </body>
     </html>
   )
 }
-
-
-
