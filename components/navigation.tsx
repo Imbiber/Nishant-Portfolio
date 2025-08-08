@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Menu, X, Code, User, Briefcase, Zap, Trophy, Mail } from "lucide-react"
+import { Menu, X, Code, User, Briefcase, Zap, Trophy, Mail, BookOpen } from "lucide-react"  // ADD BookOpen
 import { Button } from "@/components/ui/button"
 
 const navItems = [
@@ -10,6 +10,7 @@ const navItems = [
   { name: "Experience", href: "#experience", icon: Briefcase },
   { name: "Skills", href: "#skills", icon: Code },
   { name: "Projects", href: "#projects", icon: Zap },
+  { name: "Blog", href: "#blog", icon: BookOpen },  // ADD THIS LINE
   { name: "Achievements", href: "#achievements", icon: Trophy },
   { name: "Contact", href: "#contact", icon: Mail },
 ]
@@ -52,11 +53,10 @@ export default function Navigation() {
 
   return (
     <nav
-      className={`fixed top-0 w-full z-40 transition-all duration-500 ${
-        isScrolled
+      className={`fixed top-0 w-full z-40 transition-all duration-500 ${isScrolled
           ? "bg-black/80 backdrop-blur-xl border-b border-purple-500/20 shadow-2xl shadow-purple-500/10"
           : "bg-transparent"
-      }`}
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
@@ -72,11 +72,10 @@ export default function Navigation() {
                 <button
                   key={item.name}
                   onClick={() => scrollToSection(item.href)}
-                  className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 group ${
-                    activeSection === item.href.substring(1)
+                  className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 group ${activeSection === item.href.substring(1)
                       ? "text-white bg-gradient-to-r from-purple-600 to-pink-600 shadow-lg shadow-purple-500/25"
                       : "text-gray-300 hover:text-white hover:bg-white/10"
-                  }`}
+                    }`}
                 >
                   <div className="flex items-center space-x-2">
                     <Icon className="w-4 h-4" />
@@ -112,11 +111,10 @@ export default function Navigation() {
                 <button
                   key={item.name}
                   onClick={() => scrollToSection(item.href)}
-                  className={`flex items-center space-x-3 w-full text-left py-3 px-4 rounded-xl transition-all duration-300 ${
-                    activeSection === item.href.substring(1)
+                  className={`flex items-center space-x-3 w-full text-left py-3 px-4 rounded-xl transition-all duration-300 ${activeSection === item.href.substring(1)
                       ? "text-white bg-gradient-to-r from-purple-600 to-pink-600"
                       : "text-gray-300 hover:text-white hover:bg-white/10"
-                  }`}
+                    }`}
                 >
                   <Icon className="w-5 h-5" />
                   <span>{item.name}</span>

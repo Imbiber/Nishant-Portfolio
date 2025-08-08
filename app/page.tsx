@@ -1,7 +1,8 @@
 import Hero from "@/components/sections/hero"
 import About from "@/components/sections/about"
 import Experience from "@/components/sections/experience"
-import Projects from "@/components/sections/projects"
+import EnhancedProjects from "@/components/sections/enhanced-projects"  // Import the enhanced version
+import Blog from "@/components/sections/blog"
 import Skills from "@/components/sections/skills"
 import Achievements from "@/components/sections/achievements"
 import Contact from "@/components/sections/contact"
@@ -21,7 +22,8 @@ export default function Home() {
       <About />
       <Experience />
       <Skills />
-      <Projects />
+      <EnhancedProjects />  {/* Using EnhancedProjects component */}
+      <Blog />  {/* Using Blog component */}
       <Achievements />
       <Contact />
       <Footer />
