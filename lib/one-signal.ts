@@ -22,7 +22,22 @@ export const initializeOneSignal = () => {
                 enable: true,
             },
             allowLocalhostAsSecureOrigin: true,
+            autoRegister: true,
+            autoResubscribe: true,
         })
+
+        // Show slidedown prompt for new users after a short delay
+        setTimeout(() => {
+            window.OneSignal.isPushNotificationsEnabled().then((isEnabled: boolean) => {
+                if (!isEnabled) {
+                    window.OneSignal.showSlidedownPrompt().catch((error: any) => {
+                        console.log('OneSignal slidedown prompt error:', error)
+                    })
+                }
+            }).catch((error: any) => {
+                console.log('OneSignal check subscription error:', error)
+            })
+        }, 2000) // Wait 2 seconds after page load
     })
 }
 
