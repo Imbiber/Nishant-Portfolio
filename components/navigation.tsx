@@ -29,17 +29,15 @@ export default function Navigation() {
       setIsScrolled(currentScrollY > 50)
 
       // Auto-hide logic (but not when mobile menu is open)
-      if (!isOpen && currentScrollY > 400) { // Only hide after scrolling past hero section and when menu is closed
-        if (currentScrollY > lastScrollY && currentScrollY > 500) {
-          // Scrolling down - hide nav
-          setIsVisible(false)
-        } else if (currentScrollY < lastScrollY) {
-          // Scrolling up - show nav
+      if (!isOpen) {
+        if (currentScrollY <= 400) {
+          // Always show nav in hero section
           setIsVisible(true)
+        } else if (currentScrollY > lastScrollY && currentScrollY > 500) {
+          // Scrolling down - hide nav and keep it hidden
+          setIsVisible(false)
         }
-      } else if (currentScrollY <= 400) {
-        // Always show nav in hero section
-        setIsVisible(true)
+        // Note: Removed the scroll up logic - nav stays hidden once hidden
       } else if (isOpen) {
         // Always show nav when mobile menu is open
         setIsVisible(true)
