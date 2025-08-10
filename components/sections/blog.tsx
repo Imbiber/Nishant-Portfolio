@@ -262,7 +262,11 @@ export default function BlogSection() {
                                         </div>
                                         <span className="text-gray-400 text-xs flex items-center gap-1">
                                             <Calendar className="w-3 h-3" />
-                                            {new Date(post.publishedAt).toLocaleDateString()}
+                                            {new Date(post.publishedAt).toLocaleDateString('en-US', { 
+                                                year: 'numeric', 
+                                                month: 'short', 
+                                                day: 'numeric' 
+                                            })}
                                         </span>
                                     </div>
 
