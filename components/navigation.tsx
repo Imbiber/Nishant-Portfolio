@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Menu, X, Code, User, Briefcase, Zap, Trophy, Mail, BookOpen } from "lucide-react"  // ADD BookOpen
+import { Menu, X, Code, User, Briefcase, Zap, Trophy, Mail, BookOpen } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 const navItems = [
@@ -10,7 +10,7 @@ const navItems = [
   { name: "Experience", href: "#experience", icon: Briefcase },
   { name: "Skills", href: "#skills", icon: Code },
   { name: "Projects", href: "#projects", icon: Zap },
-  { name: "Blog", href: "#blog", icon: BookOpen },  // ADD THIS LINE
+  { name: "Blog", href: "#blog", icon: BookOpen },
   { name: "Achievements", href: "#achievements", icon: Trophy },
   { name: "Contact", href: "#contact", icon: Mail },
 ]
@@ -19,12 +19,49 @@ export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [activeSection, setActiveSection] = useState("home")
   const [isScrolled, setIsScrolled] = useState(false)
+  const [sectionProgress, setSectionProgress] = useState<Record<string, number>>({})
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
 
       const sections = navItems.map((item) => item.href.substring(1))
+      const progress: Record<string, number> = {}
+      
+      sections.forEach((section) => {
+        const element = document.getElementById(section)
+        if (element) {
+          const rect = element.getBoundingClientRect()
+          const windowHeight = window.innerHeight
+          const elementHeight = rect.height
+          
+          // Calculate progress based on element visibility
+          if (rect.top <= windowHeight && rect.bottom >= 0) {
+            let progressValue = 0
+            
+            if (rect.top <= 0 && rect.bottom > windowHeight) {
+              // Element is taller than viewport and partially visible
+              progressValue = Math.min(100, ((windowHeight + Math.abs(rect.top)) / elementHeight) * 100)
+            } else if (rect.top <= 0) {
+              // Element top is above viewport
+              progressValue = Math.min(100, (rect.bottom / windowHeight) * 100)
+            } else if (rect.bottom >= windowHeight) {
+              // Element bottom is below viewport
+              progressValue = Math.min(100, ((windowHeight - rect.top) / elementHeight) * 100)
+            } else {
+              // Element is fully visible
+              progressValue = 100
+            }
+            
+            progress[section] = Math.max(0, Math.min(100, progressValue))
+          } else {
+            progress[section] = 0
+          }
+        }
+      })
+      
+      setSectionProgress(progress)
+
       const currentSection = sections.find((section) => {
         const element = document.getElementById(section)
         if (element) {
@@ -40,6 +77,7 @@ export default function Navigation() {
     }
 
     window.addEventListener("scroll", handleScroll)
+    handleScroll() // Call once to set initial state
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
@@ -68,20 +106,32 @@ export default function Navigation() {
           <div className="hidden md:flex space-x-1">
             {navItems.map((item) => {
               const Icon = item.icon
+              const progress = sectionProgress[item.href.substring(1)] || 0
+              const isActive = activeSection === item.href.substring(1)
+              
               return (
                 <button
                   key={item.name}
                   onClick={() => scrollToSection(item.href)}
-                  className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 group ${activeSection === item.href.substring(1)
+                  className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 group overflow-hidden ${
+                    isActive
                       ? "text-white bg-gradient-to-r from-purple-600 to-pink-600 shadow-lg shadow-purple-500/25"
                       : "text-gray-300 hover:text-white hover:bg-white/10"
-                    }`}
+                  }`}
                 >
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-2 relative z-10">
                     <Icon className="w-4 h-4" />
                     <span>{item.name}</span>
                   </div>
-                  {activeSection === item.href.substring(1) && (
+                  
+                  {/* Progress indicator */}
+                  <div 
+                    className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-400 transition-all duration-300 ease-out"
+                    style={{ width: `${progress}%` }}
+                  />
+                  
+                  {/* Active section glow */}
+                  {isActive && (
                     <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 opacity-20 animate-pulse" />
                   )}
                 </button>
@@ -107,17 +157,29 @@ export default function Navigation() {
           <div className="md:hidden bg-black/95 backdrop-blur-xl rounded-2xl mt-2 p-6 border border-purple-500/20">
             {navItems.map((item) => {
               const Icon = item.icon
+              const progress = sectionProgress[item.href.substring(1)] || 0
+              const isActive = activeSection === item.href.substring(1)
+              
               return (
                 <button
                   key={item.name}
                   onClick={() => scrollToSection(item.href)}
-                  className={`flex items-center space-x-3 w-full text-left py-3 px-4 rounded-xl transition-all duration-300 ${activeSection === item.href.substring(1)
+                  className={`relative flex items-center space-x-3 w-full text-left py-3 px-4 rounded-xl transition-all duration-300 overflow-hidden ${
+                    isActive
                       ? "text-white bg-gradient-to-r from-purple-600 to-pink-600"
                       : "text-gray-300 hover:text-white hover:bg-white/10"
-                    }`}
+                  }`}
                 >
-                  <Icon className="w-5 h-5" />
-                  <span>{item.name}</span>
+                  <Icon className="w-5 h-5 z-10" />
+                  <span className="z-10 flex-1">{item.name}</span>
+                  
+                  {/* Progress indicator */}
+                  <div className="z-10 w-12 h-1 bg-gray-700 rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-gradient-to-r from-cyan-400 to-purple-400 transition-all duration-300 ease-out rounded-full"
+                      style={{ width: `${progress}%` }}
+                    />
+                  </div>
                 </button>
               )
             })}

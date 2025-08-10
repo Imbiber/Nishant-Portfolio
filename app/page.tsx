@@ -10,7 +10,8 @@ import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
 import ParticleBackground from "@/components/particle-background"
 import ScrollProgress from "@/components/scroll-progress"
-import OneSignalNotifications from "@/components/onesignal-notifications"
+import BackToTop from "@/components/back-to-top"
+import Breadcrumb from "@/components/breadcrumb"
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <ParticleBackground />
       <ScrollProgress />
       <Navigation />
+      <Breadcrumb />
       <Hero />
       <About />
       <Experience />
@@ -27,7 +29,7 @@ export default function Home() {
       <Achievements />
       <Contact />
       <Footer />
-      <OneSignalNotifications />
+      <BackToTop />
     </main>
   )
 }
