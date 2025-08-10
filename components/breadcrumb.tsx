@@ -92,7 +92,7 @@ export default function Breadcrumb() {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -20 }}
         transition={{ duration: 0.3 }}
-        className="fixed top-20 left-4 z-30 bg-black/80 backdrop-blur-xl rounded-full px-4 py-2 border border-purple-500/20 shadow-lg"
+        className="fixed top-4 left-4 z-30 bg-black/80 backdrop-blur-xl rounded-full px-4 py-2 border border-purple-500/20 shadow-lg"
       >
         <nav className="flex items-center space-x-2 text-sm">
           {breadcrumbItems.map((item, index) => {

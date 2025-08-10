@@ -19,11 +19,33 @@ export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [activeSection, setActiveSection] = useState("home")
   const [isScrolled, setIsScrolled] = useState(false)
+  const [isVisible, setIsVisible] = useState(true)
+  const [lastScrollY, setLastScrollY] = useState(0)
   const [sectionProgress, setSectionProgress] = useState<Record<string, number>>({})
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
+      const currentScrollY = window.scrollY
+      setIsScrolled(currentScrollY > 50)
+
+      // Auto-hide logic (but not when mobile menu is open)
+      if (!isOpen && currentScrollY > 400) { // Only hide after scrolling past hero section and when menu is closed
+        if (currentScrollY > lastScrollY && currentScrollY > 500) {
+          // Scrolling down - hide nav
+          setIsVisible(false)
+        } else if (currentScrollY < lastScrollY) {
+          // Scrolling up - show nav
+          setIsVisible(true)
+        }
+      } else if (currentScrollY <= 400) {
+        // Always show nav in hero section
+        setIsVisible(true)
+      } else if (isOpen) {
+        // Always show nav when mobile menu is open
+        setIsVisible(true)
+      }
+      
+      setLastScrollY(currentScrollY)
 
       const sections = navItems.map((item) => item.href.substring(1))
       const progress: Record<string, number> = {}
@@ -79,7 +101,7 @@ export default function Navigation() {
     window.addEventListener("scroll", handleScroll)
     handleScroll() // Call once to set initial state
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+  }, [isOpen, lastScrollY])
 
   const scrollToSection = (href: string) => {
     const element = document.getElementById(href.substring(1))
@@ -91,10 +113,13 @@ export default function Navigation() {
 
   return (
     <nav
-      className={`fixed top-0 w-full z-40 transition-all duration-500 ${isScrolled
+      className={`fixed top-0 w-full z-40 transition-all duration-300 ${
+        isScrolled
           ? "bg-black/80 backdrop-blur-xl border-b border-purple-500/20 shadow-2xl shadow-purple-500/10"
           : "bg-transparent"
-        }`}
+      } ${
+        isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
+      }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
