@@ -6,6 +6,7 @@ import Experience from "@/components/sections/experience"
 import EnhancedProjects from "@/components/sections/enhanced-projects"  // Import the enhanced version
 import Blog from "@/components/sections/blog"
 import Skills from "@/components/sections/skills"
+import HolopinBadges from "@/components/sections/holopin-badges"
 import Achievements from "@/components/sections/achievements"
 import Contact from "@/components/sections/contact"
 import Navigation from "@/components/navigation"
@@ -27,9 +28,10 @@ export default function Home() {
       <Navigation />
       <Breadcrumb />
       <Hero />
+      <HolopinBadges />
       <About />
       <Experience />
-      <Skills />
+      <Skills /> 
       <EnhancedProjects />  {/* Using EnhancedProjects component */}
       <Blog />  {/* Using Blog component */}
       <Achievements />
