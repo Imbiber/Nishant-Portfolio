@@ -1,0 +1,154 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String    @id @default(uuid())
+  email     String    @unique
+  password  String
+  name      String?
+  role      String    @default("admin") // admin, user
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  projects  Project[]
+}
+
+model Project {
+  id               String         @id @default(uuid())
+  name             String
+  apiKey           String         @unique @default(uuid())
+  vapidPublicKey   String
+  vapidPrivateKey  String
+  vapidEmail       String         @default("mailto:noreply@example.com")
+  domain           String?
+  isActive         Boolean        @default(true)
+  userId           String
+  user             User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  subscriptions    Subscription[]
+  notifications    Notification[]
+
+  @@index([userId])
+  @@index([apiKey])
+}
+
+model Subscription {
+  id              String              @id @default(uuid())
+  projectId       String
+  project         Project             @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  endpoint        String
+  p256dhKey       String
+  authKey         String
+
+  // Browser/Device Details
+  userAgent       String?
+  browserName     String?
+  browserVersion  String?
+  osName          String?
+  osVersion       String?
+  deviceType      String?             // mobile, desktop, tablet
+
+  // Tracking
+  ipAddress       String?
+  countryCode     String?
+  timezone        String?
+  language        String?
+
+  // Status
+  isActive        Boolean             @default(true)
+  subscribedAt    DateTime            @default(now())
+  unsubscribedAt  DateTime?
+  lastSeenAt      DateTime            @default(now())
+
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+
+  tags            SubscriptionTag[]
+  notificationLogs NotificationLog[]
+
+  @@unique([projectId, endpoint])
+  @@index([projectId])
+  @@index([isActive])
+  @@index([endpoint])
+}
+
+model Notification {
+  id              String            @id @default(uuid())
+  projectId       String
+  project         Project           @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  title           String
+  body            String
+  icon            String?
+  badge           String?
+  image           String?
+  url             String?
+
+  // Targeting
+  targetType      String            @default("all") // all, segment, individual
+  targetCriteria  Json?             // filter conditions
+
+  // Scheduling
+  status          String            @default("draft") // draft, scheduled, sending, sent, failed
+  scheduledAt     DateTime?
+  sentAt          DateTime?
+
+  // Stats
+  totalSent       Int               @default(0)
+  totalDelivered  Int               @default(0)
+  totalClicked    Int               @default(0)
+  totalFailed     Int               @default(0)
+
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  logs            NotificationLog[]
+
+  @@index([projectId])
+  @@index([status])
+}
+
+model NotificationLog {
+  id              String        @id @default(uuid())
+  notificationId  String
+  notification    Notification  @relation(fields: [notificationId], references: [id], onDelete: Cascade)
+  subscriptionId  String
+  subscription    Subscription  @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+
+  status          String        // sent, delivered, clicked, failed
+  errorMessage    String?
+
+  sentAt          DateTime?
+  deliveredAt     DateTime?
+  clickedAt       DateTime?
+
+  createdAt       DateTime      @default(now())
+
+  @@index([notificationId])
+  @@index([subscriptionId])
+  @@index([status])
+}
+
+model SubscriptionTag {
+  id             String       @id @default(uuid())
+  subscriptionId String
+  subscription   Subscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+  tagKey         String
+  tagValue       String
+
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@unique([subscriptionId, tagKey])
+  @@index([subscriptionId])
+  @@index([tagKey])
+}

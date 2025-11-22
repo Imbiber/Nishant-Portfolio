@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Push Notification Example</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .status {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .status.inactive {
+            background: #fee;
+            color: #c33;
+        }
+
+        .status.active {
+            background: #efe;
+            color: #3c3;
+        }
+
+        .status.pending {
+            background: #ffeaa7;
+            color: #e67e22;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .button-group {
+            margin-top: 20px;
+        }
+
+        .info-box {
+            background: #f7f7f7;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .info-box h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .info-box ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-box li {
+            padding: 8px 0;
+            color: #666;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .info-box li:last-child {
+            border-bottom: none;
+        }
+
+        .info-box li strong {
+            color: #333;
+        }
+
+        code {
+            background: #f0f0f0;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+
+        .logs {
+            background: #1e1e1e;
+            color: #ddd;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+        }
+
+        .logs .log-entry {
+            margin: 5px 0;
+        }
+
+        .logs .log-time {
+            color: #888;
+        }
+
+        .logs .log-message {
+            color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔔 Push Notification Demo</h1>
+        <p>Test the push notification microservice integration</p>
+
+        <div id="status" class="status inactive">
+            Status: Not subscribed
+        </div>
+
+        <div class="button-group">
+            <button id="subscribeBtn" onclick="subscribe()">
+                Subscribe to Notifications
+            </button>
+            <button id="unsubscribeBtn" onclick="unsubscribe()" disabled>
+                Unsubscribe
+            </button>
+            <button onclick="checkStatus()">
+                Check Status
+            </button>
+        </div>
+
+        <div class="info-box">
+            <h3>How it works:</h3>
+            <ul>
+                <li>1. Click "Subscribe to Notifications" to enable push notifications</li>
+                <li>2. Grant permission when your browser asks</li>
+                <li>3. You'll receive notifications sent from the admin dashboard</li>
+                <li>4. Click "Unsubscribe" to stop receiving notifications</li>
+            </ul>
+        </div>
+
+        <div class="info-box">
+            <h3>Integration Details:</h3>
+            <ul id="infoList">
+                <li><strong>Push Support:</strong> <span id="pushSupport">Checking...</span></li>
+                <li><strong>Permission:</strong> <span id="permission">Not requested</span></li>
+                <li><strong>Subscription:</strong> <span id="subscriptionStatus">Inactive</span></li>
+                <li><strong>API URL:</strong> <code id="apiUrl">-</code></li>
+            </ul>
+        </div>
+
+        <div id="logs" class="logs">
+            <div class="log-entry">
+                <span class="log-time">[00:00:00]</span>
+                <span class="log-message">Initializing...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include the SDK -->
+    <script src="../../client-sdk/dist/index.js"></script>
+
+    <script>
+        let pushNotify;
+
+        // Configuration - REPLACE WITH YOUR VALUES
+        const CONFIG = {
+            apiKey: 'YOUR_API_KEY_HERE', // Get from admin dashboard
+            apiUrl: 'http://localhost:3001',
+            autoPrompt: false, // We'll handle prompting manually
+            serviceWorkerPath: '/push-sw.js',
+            debug: true
+        };
+
+        // Logging function
+        function log(message) {
+            const logs = document.getElementById('logs');
+            const time = new Date().toLocaleTimeString();
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            entry.innerHTML = `
+                <span class="log-time">[${time}]</span>
+                <span class="log-message">${message}</span>
+            `;
+            logs.appendChild(entry);
+            logs.scrollTop = logs.scrollHeight;
+        }
+
+        // Initialize SDK
+        async function initializeSDK() {
+            try {
+                log('Initializing Push Notification SDK...');
+
+                pushNotify = new PushNotify({
+                    ...CONFIG,
+                    onSubscribe: (subscription) => {
+                        log('✅ Successfully subscribed!');
+                        log('Subscription ID: ' + subscription.subscriptionId);
+                        updateUI();
+                    },
+                    onUnsubscribe: () => {
+                        log('❌ Unsubscribed from notifications');
+                        updateUI();
+                    }
+                });
+
+                await pushNotify.init();
+                log('✅ SDK initialized successfully');
+                updateUI();
+            } catch (error) {
+                log('❌ Error: ' + error.message);
+                console.error(error);
+            }
+        }
+
+        // Subscribe to notifications
+        async function subscribe() {
+            try {
+                log('Requesting notification permission...');
+                const subscription = await pushNotify.subscribe();
+
+                if (!subscription) {
+                    log('❌ Permission denied or subscription failed');
+                }
+            } catch (error) {
+                log('❌ Error subscribing: ' + error.message);
+            }
+        }
+
+        // Unsubscribe from notifications
+        async function unsubscribe() {
+            try {
+                log('Unsubscribing...');
+                const success = await pushNotify.unsubscribe();
+
+                if (!success) {
+                    log('❌ Unsubscribe failed');
+                }
+            } catch (error) {
+                log('❌ Error unsubscribing: ' + error.message);
+            }
+        }
+
+        // Check current status
+        async function checkStatus() {
+            const isSubscribed = await pushNotify.isSubscribed();
+            const permission = pushNotify.getPermission();
+            const isPushSupported = pushNotify.isPushSupported();
+
+            log(`Push Support: ${isPushSupported}`);
+            log(`Permission: ${permission}`);
+            log(`Subscribed: ${isSubscribed}`);
+        }
+
+        // Update UI based on subscription status
+        async function updateUI() {
+            const isSubscribed = await pushNotify.isSubscribed();
+            const permission = pushNotify.getPermission();
+            const isPushSupported = pushNotify.isPushSupported();
+
+            // Update status box
+            const statusDiv = document.getElementById('status');
+            if (isSubscribed) {
+                statusDiv.className = 'status active';
+                statusDiv.textContent = 'Status: ✅ Subscribed - You will receive notifications';
+            } else if (permission === 'denied') {
+                statusDiv.className = 'status inactive';
+                statusDiv.textContent = 'Status: ❌ Permission denied - Please enable in browser settings';
+            } else {
+                statusDiv.className = 'status inactive';
+                statusDiv.textContent = 'Status: Not subscribed';
+            }
+
+            // Update buttons
+            document.getElementById('subscribeBtn').disabled = isSubscribed || permission === 'denied';
+            document.getElementById('unsubscribeBtn').disabled = !isSubscribed;
+
+            // Update info
+            document.getElementById('pushSupport').textContent = isPushSupported ? '✅ Supported' : '❌ Not supported';
+            document.getElementById('permission').textContent = permission;
+            document.getElementById('subscriptionStatus').textContent = isSubscribed ? '✅ Active' : '❌ Inactive';
+            document.getElementById('apiUrl').textContent = CONFIG.apiUrl;
+        }
+
+        // Initialize on page load
+        window.addEventListener('load', () => {
+            log('Page loaded');
+
+            if (CONFIG.apiKey === 'YOUR_API_KEY_HERE') {
+                log('⚠️ Warning: Please set your API key in the code!');
+                log('Get your API key from the admin dashboard');
+                document.getElementById('subscribeBtn').disabled = true;
+            } else {
+                initializeSDK();
+            }
+        });
+
+        // Listen for service worker messages
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.addEventListener('message', (event) => {
+                log('Message from service worker: ' + JSON.stringify(event.data));
+            });
+        }
+    </script>
+</body>
+</html>
