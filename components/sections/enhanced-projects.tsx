@@ -14,7 +14,7 @@ const projects: Project[] = [
         subtitle: "Criminal Investigation App",
         description:
             "Enhanced evidence collection and legal procedure integration app that reduced case processing time by 40% and increased evidence accuracy by 25% through automation.",
-        image: "/placeholder.svg?height=300&width=500",
+        image: "/projects/deduct-ai.jpg",
         technologies: ["React", "Node.js", "AI/ML", "MongoDB", "Express"],
         category: "Full Stack",
         featured: true,
@@ -41,7 +41,7 @@ const projects: Project[] = [
         subtitle: "React Weather App",
         description:
             "Led end-to-end development of a React-based weather app with intuitive UI/UX design, real-time data integration, and custom styling. Successfully deployed on Netlify with 100+ unique users.",
-        image: "/placeholder.svg?height=300&width=500",
+        image: "/projects/forecastify.jpg",
         technologies: ["React", "JavaScript", "CSS", "Weather API", "Netlify"],
         category: "Frontend",
         featured: true,
@@ -68,7 +68,7 @@ const projects: Project[] = [
         subtitle: "Recipe Sharing Platform",
         description:
             "A full-stack web application for creating, sharing, and managing recipes. Built with MongoDB Atlas for data storage, GraphQL for API interactions, and React frontend.",
-        image: "/placeholder.svg?height=300&width=500",
+        image: "/projects/recipe-book.jpg",
         technologies: ["React", "GraphQL", "MongoDB Atlas", "Node.js", "Express"],
         category: "Full Stack",
         featured: false,
