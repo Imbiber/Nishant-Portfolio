@@ -1,8 +1,9 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { ChevronDown, Github, Linkedin, Mail, ExternalLink, Download } from "lucide-react"
+import { ChevronDown, Github, Linkedin, Mail, ExternalLink, Download, Eye } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog"
 
 export default function Hero() {
   const [text, setText] = useState("")
@@ -101,16 +102,46 @@ export default function Hero() {
             <ExternalLink className="w-5 h-5 group-hover:rotate-45 transition-transform duration-300" />
           </Button>
 
-          <a href="/resume.pdf" download="Nishant_Gaurav_Resume.pdf">
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-2 border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-black px-8 py-4 rounded-full transition-all duration-300 bg-transparent hover:shadow-2xl hover:shadow-cyan-500/25 group"
-            >
-              <Download className="w-5 h-5 mr-2 group-hover:animate-bounce" />
-              Download Resume
-            </Button>
-          </a>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button
+                variant="outline"
+                size="lg"
+                className="border-2 border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-black px-8 py-4 rounded-full transition-all duration-300 bg-transparent hover:shadow-2xl hover:shadow-cyan-500/25 group"
+              >
+                <Eye className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform duration-300" />
+                View Resume
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-4xl w-[95vw] h-[85vh] bg-gradient-to-br from-gray-900 via-black to-gray-950 border border-purple-500/30 text-white backdrop-blur-2xl flex flex-col p-6 rounded-2xl">
+              <DialogHeader className="pb-4 border-b border-gray-800">
+                <DialogTitle className="text-2xl font-bold flex items-center gap-2">
+                  <span>Nishant Gaurav - Resume</span>
+                </DialogTitle>
+              </DialogHeader>
+              
+              <div className="flex-1 min-h-0 w-full relative bg-gray-950/50 rounded-xl overflow-hidden mt-4 border border-gray-800">
+                <iframe
+                  src="/resume.pdf#toolbar=0"
+                  className="w-full h-full border-0 bg-white"
+                  title="Nishant Gaurav Resume"
+                />
+              </div>
+              
+              <p className="text-xs text-gray-400 mt-3 text-center sm:text-left">
+                * If the preview does not display, you can download the PDF directly using the button below.
+              </p>
+
+              <DialogFooter className="pt-4 border-t border-gray-800 flex flex-col sm:flex-row gap-3 justify-end mt-4">
+                <a href="/resume.pdf" download="Nishant_Gaurav_Resume.pdf">
+                  <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6">
+                    <Download className="w-4 h-4 mr-2" />
+                    Download PDF
+                  </Button>
+                </a>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </div>
 
         <div className="flex justify-center space-x-8 mb-16">
