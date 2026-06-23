@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Mail, Phone, MapPin, Send, Github, Linkedin, ExternalLink, MessageCircle } from "lucide-react"
+import { toast } from "sonner"
+import { sendContactEmail } from "@/app/actions/contact"
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -26,14 +28,27 @@ export default function Contact() {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+    try {
+      const result = await sendContactEmail(formData)
 
-    console.log("Form submitted:", formData)
-    setIsSubmitting(false)
-    setFormData({ name: "", email: "", subject: "", message: "" })
-
-    alert("Thank you for your message! I'll get back to you soon.")
+      if (result.success) {
+        if (result.mock) {
+          toast.info(result.message, {
+            duration: 8000,
+          })
+        } else {
+          toast.success("Thank you for your message! I'll get back to you soon.")
+        }
+        setFormData({ name: "", email: "", subject: "", message: "" })
+      } else {
+        toast.error(result.error || "Failed to send message. Please try again.")
+      }
+    } catch (error) {
+      console.error("Error submitting contact form:", error)
+      toast.error("An unexpected error occurred. Please try again later.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const contactInfo = [

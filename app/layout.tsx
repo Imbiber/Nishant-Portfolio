@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Analytics } from '@vercel/analytics/react'
 import { Inter } from "next/font/google"
 import Script from 'next/script'
+import { Toaster } from "@/components/ui/sonner"
 import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -59,6 +60,7 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         {children}
+        <Toaster theme="dark" position="bottom-right" richColors />
         <Analytics />
       </body>
     </html>
