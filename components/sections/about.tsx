@@ -61,7 +61,6 @@ export default function About() {
                   <Coffee className="w-8 h-8 mr-3 text-purple-400" />
                   My Journey
                 </h3>
-                <h3 className="text-2xl font-bold text-white mb-4">My Journey</h3>
 
                 <p className="text-gray-300 leading-relaxed mb-4 text-lg">
                   I'm a passionate <span className="text-purple-400 font-semibold">Software Developer</span> currently working at{" "}
@@ -121,7 +120,7 @@ export default function About() {
                 <div className="space-y-6">
                   <div className="flex justify-between items-center p-4 bg-gray-800/30 rounded-xl">
                     <span className="text-gray-300 text-lg">Current Role</span>
-                    <span className="text-purple-400 font-semibold">Software Devloper @ Broadridge</span>
+                    <span className="text-purple-400 font-semibold">Software Developer @ Broadridge</span>
                   </div>
                   <div className="flex justify-between items-center p-4 bg-gray-800/30 rounded-xl">
                     <span className="text-gray-300 text-lg">Location</span>

@@ -69,7 +69,7 @@ export default function Contact() {
     {
       icon: MapPin,
       label: "Location",
-      value: "Bhubaneswar, India",
+      value: "Bangalore, India",
       href: "#",
       color: "text-cyan-400",
     },
@@ -121,7 +121,7 @@ export default function Contact() {
                   Get In Touch
                 </h3>
                 <p className="text-gray-300 mb-8 leading-relaxed text-lg">
-                  I'm currently working as a Software Devloper at{" "}
+                  I'm currently working as a Software Developer at{" "}
                   <span className="text-purple-400 font-semibold">Broadridge</span> and always excited to discuss new
                   opportunities, collaborate on interesting projects, or just have a tech chat!
                 </p>

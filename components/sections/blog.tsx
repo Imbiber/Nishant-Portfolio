@@ -92,6 +92,84 @@ pc.onicecandidate = (event) => {
         featured: true,
         coverImage: "/placeholder.svg",
         videoUrl: "https://youtube.com/watch?v=demo"
+    },
+    {
+        id: "3",
+        title: "Optimizing PostgreSQL Database Queries: A Case Study",
+        excerpt: "Discover how we achieved a 30% performance boost in Express/Sequelize API queries by indexing, query tuning, and database optimization.",
+        content: "Full content here...",
+        category: "case-study",
+        tags: ["PostgreSQL", "Database", "Performance", "Backend"],
+        author: {
+            name: "Nishant Gaurav",
+            avatar: "/placeholder.svg",
+            role: "Software Developer"
+        },
+        publishedAt: "2025-01-10",
+        readTime: 6,
+        views: 1890,
+        likes: 142,
+        comments: 12,
+        featured: false,
+        coverImage: "/placeholder.svg",
+        difficulty: "intermediate"
+    },
+    {
+        id: "4",
+        title: "Dockerizing Node.js Applications for Production",
+        excerpt: "Step-by-step guide to dockerizing a Node.js microservice, optimizing image size using multi-stage builds, and implementing production best practices.",
+        content: "Full content here...",
+        category: "tutorial",
+        tags: ["Docker", "Node.js", "DevOps", "Microservices"],
+        author: {
+            name: "Nishant Gaurav",
+            avatar: "/placeholder.svg",
+            role: "Software Developer"
+        },
+        publishedAt: "2024-12-28",
+        readTime: 10,
+        views: 3120,
+        likes: 215,
+        comments: 38,
+        featured: false,
+        coverImage: "/placeholder.svg",
+        difficulty: "intermediate",
+        codeSnippet: `# Multi-stage Build Dockerfile
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+FROM node:20-alpine AS runner
+WORKDIR /app
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/package*.json ./
+RUN npm ci --only=production
+USER node
+CMD ["node", "dist/index.js"]`
+    },
+    {
+        id: "5",
+        title: "Monitoring Express.js with Prometheus and Grafana",
+        excerpt: "Learn how to setup Prometheus metrics collection and build Grafana dashboards to track latency, request counts, and server resource usage in real-time.",
+        content: "Full content here...",
+        category: "tech-talk",
+        tags: ["Prometheus", "Grafana", "Monitoring", "DevOps"],
+        author: {
+            name: "Nishant Gaurav",
+            avatar: "/placeholder.svg",
+            role: "Software Developer"
+        },
+        publishedAt: "2024-11-15",
+        readTime: 7,
+        views: 1540,
+        likes: 98,
+        comments: 8,
+        featured: false,
+        coverImage: "/placeholder.svg",
+        difficulty: "beginner"
     }
 ]
 
