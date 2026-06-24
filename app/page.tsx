@@ -4,7 +4,7 @@ import Hero from "@/components/sections/hero"
 import About from "@/components/sections/about"
 import Experience from "@/components/sections/experience"
 import EnhancedProjects from "@/components/sections/enhanced-projects"  // Import the enhanced version
-import Blog from "@/components/sections/blog"
+// import Blog from "@/components/sections/blog"
 import Skills from "@/components/sections/skills"
 import HolopinBadges from "@/components/sections/holopin-badges"
 import Achievements from "@/components/sections/achievements"
@@ -33,7 +33,7 @@ export default function Home() {
       <Experience />
       <Skills /> 
       <EnhancedProjects />  {/* Using EnhancedProjects component */}
-      <Blog />  {/* Using Blog component */}
+      {/* <Blog /> */} {/* Using Blog component */}
       <Achievements />
       <Contact />
       <Footer />
