@@ -177,7 +177,7 @@ export default function Navigation() {
 
         {/* Mobile Navigation Menu */}
         {isOpen && (
-          <div className="md:hidden bg-black/95 backdrop-blur-xl rounded-2xl mt-2 p-6 border border-purple-500/20">
+          <div className="md:hidden bg-black/95 backdrop-blur-xl rounded-2xl mt-2 p-6 border border-purple-500/20 max-h-[calc(100vh-80px)] overflow-y-auto">
             {navItems.map((item) => {
               const Icon = item.icon
               const progress = sectionProgress[item.href.substring(1)] || 0

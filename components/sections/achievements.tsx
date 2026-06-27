@@ -238,7 +238,7 @@ export default function Achievements() {
             </CarouselContent>
 
             {/* Custom Interactive Controls */}
-            <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between pointer-events-none px-2 sm:px-6">
+            <div className="absolute inset-y-0 left-0 right-0 hidden md:flex items-center justify-between pointer-events-none px-2 sm:px-6">
               <button
                 onClick={() => {
                   if (api) {

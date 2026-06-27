@@ -79,20 +79,20 @@ export default function Experience() {
                     <p className="text-2xl text-purple-400 font-semibold">{experience.company}</p>
                   </div>
                 </div>
-                <div className="text-right">
+                <div className="text-left lg:text-right mt-4 lg:mt-0 flex flex-col items-start lg:items-end">
                   <div className="flex items-center text-gray-300 mb-2">
-                    <Calendar className="w-5 h-5 mr-2" />
-                    {experience.duration}
+                    <Calendar className="w-5 h-5 mr-2 lg:mr-0 lg:ml-2 order-first lg:order-last" />
+                    <span className="order-last lg:order-first">{experience.duration}</span>
                   </div>
                   <div className="flex items-center text-gray-300 mb-2">
-                    <MapPin className="w-5 h-5 mr-2" />
-                    {experience.location}
+                    <MapPin className="w-5 h-5 mr-2 lg:mr-0 lg:ml-2 order-first lg:order-last" />
+                    <span className="order-last lg:order-first">{experience.location}</span>
                   </div>
                   <Badge className="bg-green-600 text-white">{experience.type}</Badge>
                 </div>
               </div>
 
-              <div className="grid md:grid-cols-3 gap-6 mb-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                 {experience.achievements.map((achievement, index) => {
                   const Icon = achievement.icon
                   return (

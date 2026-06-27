@@ -134,11 +134,11 @@ export default function Contact() {
                         <div className="bg-gray-800/50 p-4 rounded-xl group-hover:bg-purple-600/20 transition-all duration-300">
                           <Icon className={`h-6 w-6 ${info.color}`} />
                         </div>
-                        <div>
+                        <div className="min-w-0 flex-1">
                           <p className="text-gray-400 text-sm">{info.label}</p>
                           <a
                             href={info.href}
-                            className={`text-white ${info.color} transition-colors duration-300 text-lg font-medium`}
+                            className={`text-white ${info.color} transition-colors duration-300 text-base sm:text-lg font-medium break-all block`}
                           >
                             {info.value}
                           </a>

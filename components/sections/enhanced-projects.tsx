@@ -136,7 +136,7 @@ export default function EnhancedProjects() {
                 </div>
 
                 {/* Projects Grid */}
-                <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8">
+                <div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-8">
                     {filteredProjects.map((project) => (
                         <Card
                             key={project.id}

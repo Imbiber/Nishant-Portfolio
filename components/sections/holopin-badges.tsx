@@ -93,17 +93,17 @@ export default function HolopinBadges() {
                       <p className="text-purple-300">Exclusive Open Source Achievements</p>
                     </div>
                   </div>
-                  <div className="flex gap-4">
+                  <div className="flex flex-wrap gap-4 sm:gap-6 justify-start md:justify-end">
                     <div className="text-center">
-                      <div className="text-3xl font-black text-yellow-400">20+</div>
+                      <div className="text-xl sm:text-2xl md:text-3xl font-black text-yellow-400">20+</div>
                       <div className="text-xs text-gray-400">BADGES</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-3xl font-black text-green-400">2023-PRESENT</div>
+                      <div className="text-xl sm:text-2xl md:text-3xl font-black text-green-400">2023-PRESENT</div>
                       <div className="text-xs text-gray-400">ACTIVE</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-3xl font-black text-blue-400">SUPER CONTRIBUTOR</div>
+                      <div className="text-xl sm:text-2xl md:text-3xl font-black text-blue-400">SUPER CONTRIBUTOR</div>
                       <div className="text-xs text-gray-400">RANK</div>
                     </div>
                   </div>

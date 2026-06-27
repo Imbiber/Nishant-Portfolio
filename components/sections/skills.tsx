@@ -175,7 +175,7 @@ export default function Skills() {
         </div>
 
         {/* Skill Categories */}
-        <div className="grid lg:grid-cols-2 xl:grid-cols-4 gap-8 mb-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
           {skillCategories.map((category, index) => {
             const Icon = category.icon
             return (
@@ -234,7 +234,7 @@ export default function Skills() {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: "-100px" }}
-            className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4"
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4"
           >
             {techLogos.map((tech) => (
               <motion.div
