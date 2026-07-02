@@ -9,6 +9,33 @@ import type { Project } from "@/types/project"
 
 const projects: Project[] = [
     {
+        id: "4",
+        title: "Push Notification Microservice",
+        subtitle: "Self-Hosted Messaging Infrastructure",
+        description:
+            "A complete, production-ready push notification microservice enabling multi-tenant projects, real-time analytics, automated client SDK integration, and BullMQ background queues.",
+        image: "/projects/push-notification.jpg",
+        technologies: ["Node.js", "Express", "TypeScript", "Redis", "BullMQ", "PostgreSQL", "Next.js", "Docker"],
+        category: "Backend",
+        featured: true,
+        duration: "May 2025 - Jun 2025",
+        type: "Personal Project",
+        status: "live",
+        popularity: 98,
+        dateCreated: "2025-05-10",
+        lastUpdated: "2025-06-15",
+        tags: ["Backend", "Queues", "Microservices"],
+        impact: {
+            reliability: "BullMQ queue retry reliability",
+            scalability: "Multi-tenant project support",
+            developer: "Self-hosted SDK integration",
+        },
+        links: {
+            github: "https://github.com/Imbiber/web-push",
+            live: "#",
+        },
+    },
+    {
         id: "1",
         title: "Deduct-AI",
         subtitle: "Criminal Investigation App",
@@ -260,9 +287,12 @@ export default function EnhancedProjects() {
                         variant="outline"
                         size="lg"
                         className="border-purple-400 text-purple-400 hover:bg-purple-400 hover:text-white px-8 py-3 bg-transparent transform hover:scale-105 transition-all duration-300"
+                        asChild
                     >
-                        <Github className="w-5 h-5 mr-2" />
-                        View All Projects on GitHub
+                        <a href="https://github.com/Imbiber" target="_blank" rel="noopener noreferrer">
+                            <Github className="w-5 h-5 mr-2" />
+                            View All Projects on GitHub
+                        </a>
                     </Button>
                 </div>
             </div>
